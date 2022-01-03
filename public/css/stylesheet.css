@@ -1,0 +1,13 @@
+.full-container {
+    width: 100%;
+    display: flex;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+}
+
+.calendar-frame {
+    width: 90vw;
+    height: 90vh;
+}
