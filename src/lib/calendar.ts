@@ -4,14 +4,6 @@ import { BaseExternalAccountClient, Compute, GoogleAuth, Impersonated, JWT, User
 const calendarId = process.env.CALENDAR_ID || "4ik1bjvl5hd994nuv58ok85snc@group.calendar.google.com";
 export const calendar = google.calendar('v3');
 
-let serviceaccount = "";
-
-if(process.env.NODE_ENV === "production") {
-
-} else {
-
-}
-
 export type Auth = Compute | JWT | UserRefreshClient | Impersonated | BaseExternalAccountClient;
 
 const SCOPES = ["https://www.googleapis.com/auth/calendar.events"]
