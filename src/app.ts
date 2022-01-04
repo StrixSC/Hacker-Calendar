@@ -8,7 +8,9 @@ const app = express();
 import index from "./routes/index";
 import about from './routes/about';
 import ressources from './routes/ressources';
-import { authenticateAndExecute } from "./lib/calendar";
+import { authenticateWithCallback } from "./lib/calendar";
+import { getContests, getContestsBetween } from "./lib/clist";
+import { AuthClient } from 'google-auth-library/build/src/auth/authclient';
 
 const port = process.env.PORT || 3000
 
@@ -25,4 +27,11 @@ app.all('*', (req, res) => {
 
 app.listen(port, () => {
     console.log("Process started on port", port);
+    const today = new Date()
+    const nextMonth = new Date(today)
+    nextMonth.setMonth(nextMonth.getMonth() + 1)
+
+    authenticateWithCallback((authClient: AuthClient, calendarId: string) => {
+        getContestsBetween(today, nextMonth);
+    });
 });

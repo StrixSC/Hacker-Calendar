@@ -1,6 +1,4 @@
-import axios from 'axios';
-import moment from "moment";
-import { calendar_v3, google } from "googleapis"
+import { google } from "googleapis"
 import { BaseExternalAccountClient, Compute, GoogleAuth, Impersonated, JWT, UserRefreshClient } from "google-auth-library";
 
 const calendarId = process.env.CALENDAR_ID || "4ik1bjvl5hd994nuv58ok85snc@group.calendar.google.com";
@@ -11,7 +9,7 @@ type AuthClient = Compute | JWT | UserRefreshClient | Impersonated | BaseExterna
 
 const SCOPES = ["https://www.googleapis.com/auth/calendar.events"]
 
-export const authenticateAndExecute = async (callback: (authClient: AuthClient, calendarId: string) => any) => {
+export const authenticateWithCallback = async (callback: (authClient: AuthClient, calendarId: string) => any) => {
     const auth = new GoogleAuth({
         scopes: SCOPES,
         credentials: seviceaccount
