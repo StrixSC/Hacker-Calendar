@@ -1,7 +1,7 @@
 import { google } from "googleapis"
 import { BaseExternalAccountClient, Compute, GoogleAuth, Impersonated, JWT, UserRefreshClient } from "google-auth-library";
 
-const calendarId = process.env.CALENDAR_ID || "4ik1bjvl5hd994nuv58ok85snc@group.calendar.google.com";
+const calendarId = process.env.CALENDAR_ID;
 export const calendar = google.calendar('v3');
 
 export type Auth = Compute | JWT | UserRefreshClient | Impersonated | BaseExternalAccountClient;
