@@ -2,7 +2,8 @@
     "verbose": true,
     "ignore": [
         "*.test.js",
-        "fixtures/*"
+        "fixtures/*",
+        "node_modules/*"
     ],
     "watch": [
         "**/**.js",

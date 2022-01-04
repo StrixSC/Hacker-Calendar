@@ -41,3 +41,9 @@ export const getContestsBetween = async (start: Date, end: Date): Promise<CListC
         end__lte: end.toISOString()
     });
 }
+
+export const getContestsStarting = async (start: Date): Promise<CListContestsResponse | null> => {
+    return getContests({
+        start__gte: start.toISOString()
+    });
+}
