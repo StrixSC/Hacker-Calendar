@@ -8,11 +8,14 @@
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
     "postbuild": "cp -r public dist && cp -r src/views dist/src/",
-    "prestart": "npm run build",
+    "postinstall": "yarn build",
     "start": "node ."
   },
   "author": "StrixSC",
   "license": "MIT",
+  "engines": {
+    "node": "16.x"
+  },
   "dependencies": {
     "dotenv": "^10.0.0",
     "ejs": "^3.1.6",
