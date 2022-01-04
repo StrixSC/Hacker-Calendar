@@ -2,11 +2,12 @@
   "name": "hacker-calendar",
   "version": "1.0.0",
   "description": "Calendar for Hackers",
-  "main": "dist/app.js",
+  "main": "dist/src/app.js",
   "scripts": {
     "dev": "nodemon src/app.ts",
     "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
     "build": "tsc",
+    "postbuild": "cp -r public dist && cp -r src/views dist/src/",
     "prestart": "npm run build",
     "start": "node ."
   },
