@@ -1,13 +1,13 @@
-const express = require('express');
-const path = require('path')
+import express from 'express';
+import path from 'path';
 
-const dotenv = require('dotenv');
+import dotenv from 'dotenv';
 dotenv.config();
 
 const app = express();
-const index = require('./routes/index');
-const about = require('./routes/about');
-const ressources = require('./routes/ressources');
+import index from "./routes/index";
+import about from './routes/about';
+import ressources from './routes/ressources';
 
 const port = process.env.PORT || 3000
 
