@@ -5,7 +5,7 @@
   "scripts": {
     "start": "nx serve",
     "heroku-postbuild": "npm run build:api",
-    "build": "npx nx run-many --target=build --projects=api,static --parallel=true",
+    "build": "nx run-many --target=build --projects=api,static --parallel=true",
     "test": "nx test",
     "build:static": "nx build static",
     "build:api": "nx build api",
