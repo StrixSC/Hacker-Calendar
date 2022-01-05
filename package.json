@@ -6,6 +6,8 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
+    "build:static": "nx build static",
+    "build:api": "nx build api",
     "all": "nx run-many --parallel --target=serve --projects=api,static"
   },
   "private": true,
