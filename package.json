@@ -4,6 +4,7 @@
   "license": "MIT",
   "scripts": {
     "start": "nx serve",
+    "heroku-postbuild": "yarn build:api",
     "build": "yarn nx run-many --target=build --projects=api,static --parallel=true",
     "test": "nx test",
     "build:static": "nx build static",
@@ -13,6 +14,10 @@
     "all": "nx run-many --parallel --target=serve --projects=api,static"
   },
   "private": true,
+  "engines": {
+    "node": "16.x",
+    "yarn": "1.x"
+  },
   "dependencies": {
     "@nrwl/next": "^13.4.3",
     "bootstrap": "^5.1.3",
