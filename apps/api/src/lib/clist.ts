@@ -1,7 +1,10 @@
-import { CListContestsResponse } from './../models/CListContestResponse.model';
+import { HackerSource } from './../models/HackerEvent.model';
+import { Auth, authenticateWithCallback, calendar } from './calendar';
+import { CListContestsResponse, Contest } from './../models/CListContestResponse.model';
 import { CListContestParams } from './../models/CListContestParams.model';
 import { request } from "gaxios";
-import fs from "fs";
+import generateRandomColorId from './colors';
+import { HackerEvent } from '../models/HackerEvent.model';
 
 const routes = {
     baseUrl: "https://clist.by:443",
@@ -45,5 +48,48 @@ export const getContestsBetween = async (start: Date, end: Date): Promise<CListC
 export const getContestsStarting = async (start: Date): Promise<CListContestsResponse | null> => {
     return getContests({
         start__gte: start.toISOString()
+    });
+}
+
+export const getClistContests: HackerSource = async (start: Date): Promise<HackerEvent[]> => {
+    const data = await getContestsStarting(start);
+    if (data) {
+        return data.objects.map((contest: Contest) => ({
+            start: contest.start,
+            end: contest.end,
+            summary: contest.event,
+            id: contest.id.toString(),
+            description: contest.href
+        })) as HackerEvent[]
+    } else return [];
+}
+
+const updateCalendar = (): any => {
+    authenticateWithCallback(async (auth: Auth, calendarId: string) => {
+        const data = await getContestsStarting(new Date());
+        data.objects.forEach(async (contest: Contest) => {
+            try {
+                await calendar.events.insert({
+                    auth,
+                    calendarId,
+                    requestBody: {
+                        colorId: generateRandomColorId(),
+                        start: {
+                            dateTime: contest.start,
+                            timeZone: "UTC"
+                        },
+                        end: {
+                            dateTime: contest.end,
+                            timeZone: "UTC"
+                        },
+                        summary: contest.event,
+                        description: contest.href,
+                        id: contest.id.toString(),
+                    }
+                })
+            } catch (e) {
+                console.error("Duplicate on ", contest.event);
+            }
+        });
     });
 }
