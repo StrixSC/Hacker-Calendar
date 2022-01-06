@@ -1,3 +1,4 @@
+import { getActiveMachines } from './../lib/htb';
 import { HackerEvent } from './../models/HackerEvent.model';
 import { authenticateWithCallback, updateCalendar } from './../lib/calendar';
 import express, { Request, Response, NextFunction } from "express";
@@ -9,7 +10,7 @@ const router = express.Router();
 
 const sources: HackerSource[] = [getClistContests]
 
-router.get("/", authentifyRequest, async (req: Request, res: Response, next: NextFunction) => {
+router.get("/lol", authentifyRequest, async (req: Request, res: Response, next: NextFunction) => {
     await authenticateWithCallback(async (auth, calendarId) => {
         const today = new Date();
         let allSources = [] as HackerEvent[];
@@ -22,5 +23,10 @@ router.get("/", authentifyRequest, async (req: Request, res: Response, next: Nex
         return res.status(200).json({ message: "Update Successfull", errored, skipped })
     })
 });
+
+router.get("/", async (req, res, next) => {
+    const results = await getActiveMachines();
+    res.json(results);
+})
 
 export default router;
